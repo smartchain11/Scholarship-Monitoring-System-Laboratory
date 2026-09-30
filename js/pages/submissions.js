@@ -405,7 +405,7 @@ function evaluateSubmissionAgainstRequirements(submission, program) {
     return compliant ? 'Compliant' : 'With Deficiency';
 }
 
-function viewSubmissionDetails(submissionId) {
+export function viewSubmissionDetails(submissionId) {
     const submission = submissionsData.find(s => s.id === submissionId);
     if (!submission) return;
     

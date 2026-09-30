@@ -141,7 +141,7 @@ async function loadPage(page) {
 import { loadDashboard } from './pages/dashboard.js';
 import { loadScholarsPage, openScholarModal, deleteScholar } from './pages/scholars.js';
 import { loadProgramsPage, openProgramModal, deleteProgram } from './pages/programs.js';
-import { loadSubmissionsPage, openSubmissionModal, verifySubmission, returnSubmission } from './pages/submissions.js';
+import { loadSubmissionsPage, openSubmissionModal, verifySubmission, returnSubmission, evaluateCompliance, viewSubmissionDetails } from './pages/submissions.js';
 import { loadCompliancePage } from './pages/compliance.js';
 
 // Make functions globally available for inline handlers
@@ -153,3 +153,5 @@ window.deleteProgram = deleteProgram;
 window.openSubmissionModal = openSubmissionModal;
 window.verifySubmission = verifySubmission;
 window.returnSubmission = returnSubmission;
+window.evaluateCompliance = evaluateCompliance;
+window.viewSubmissionDetails = viewSubmissionDetails;
