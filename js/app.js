@@ -6,9 +6,6 @@ import { supabase, showToast } from './supabase.js';
 
 // Initialize app when DOM is ready
 document.addEventListener('DOMContentLoaded', async () => {
-    // Initialize authentication
-    await initAuth();
-    
     // Set up navigation
     setupNavigation();
     
@@ -31,6 +28,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('modal-overlay').classList.add('hidden');
         }
     });
+
+    // Initialize authentication last so UI is ready
+    try {
+        await initAuth();
+    } catch (err) {
+        console.error("Auth init error:", err);
+    }
 });
 
 function setupAuthTabs() {
