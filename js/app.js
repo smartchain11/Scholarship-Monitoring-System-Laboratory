@@ -4,8 +4,7 @@
 import { initAuth, logout, navigateTo } from './auth.js';
 import { supabase, showToast } from './supabase.js';
 
-// Initialize app when DOM is ready
-document.addEventListener('DOMContentLoaded', async () => {
+async function initApp() {
     // Set up navigation
     setupNavigation();
     
@@ -35,7 +34,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (err) {
         console.error("Auth init error:", err);
     }
-});
+}
+
+// Initialize app when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
 
 function setupAuthTabs() {
     document.querySelectorAll('.auth-tab').forEach(tab => {
