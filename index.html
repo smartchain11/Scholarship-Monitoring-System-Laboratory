@@ -16,7 +16,12 @@
                     <h1>Scholarship Monitoring System</h1>
                     <p class="subtitle">Student Scholarship Monitoring and Academic Compliance</p>
                 </div>
-                <form id="login-form" class="login-form">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Sign In</button>
+                    <button class="auth-tab" data-tab="register">Register</button>
+                </div>
+                <!-- Login Form -->
+                <form id="login-form" class="login-form auth-form active">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" required placeholder="Enter your email">
@@ -27,13 +32,36 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                 </form>
+                <!-- Register Form -->
+                <form id="register-form" class="login-form auth-form">
+                    <div class="form-group">
+                        <label for="reg-full-name">Full Name</label>
+                        <input type="text" id="reg-full-name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email">Email</label>
+                        <input type="email" id="reg-email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input type="password" id="reg-password" required minlength="6" placeholder="Minimum 6 characters">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-confirm-password">Confirm Password</label>
+                        <input type="password" id="reg-confirm-password" required minlength="6" placeholder="Confirm your password">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-role">Role</label>
+                        <select id="reg-role" required>
+                            <option value="scholar">Scholar</option>
+                            <option value="staff">Staff</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                </form>
                 <div id="login-error" class="error-message hidden"></div>
-                <div class="demo-accounts">
-                    <p><strong>Demo Accounts:</strong></p>
-                    <p>Admin: admin@test.com / admin123</p>
-                    <p>Staff: staff@test.com / staff123</p>
-                    <p>Scholar: scholar@test.com / scholar123</p>
-                </div>
+                <div id="register-success" class="success-message hidden"></div>
             </div>
         </div>
     </div>
