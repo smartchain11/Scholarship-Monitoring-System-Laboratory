@@ -148,6 +148,14 @@ CREATE POLICY "Scholars can view own submissions" ON grade_submissions
         )
     );
 
+CREATE POLICY "Scholars can insert submissions" ON grade_submissions
+    FOR INSERT WITH CHECK (
+        EXISTS (
+            SELECT 1 FROM profiles p 
+            WHERE p.id = auth.uid() AND p.role = 'scholar'
+        )
+    );
+
 -- ============================================
 -- TRIGGERS FOR UPDATED_AT
 -- ============================================

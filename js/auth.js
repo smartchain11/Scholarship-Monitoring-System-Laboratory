@@ -79,7 +79,7 @@ function updateNavigationVisibility() {
     const navItems = {
         'scholars': isStaffUser,
         'programs': isAdminUser,
-        'submissions': isStaffUser,
+        'submissions': true,
         'compliance': isStaffUser
     };
     

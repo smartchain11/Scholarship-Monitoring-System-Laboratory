@@ -30,11 +30,9 @@ export async function loadSubmissionsPage() {
                 <h1>Grade Submissions</h1>
                 <p class="text-secondary">Manage semester grade submissions and verification</p>
             </div>
-            ${isStaff(currentProfile) ? `
-                <button class="btn btn-primary" onclick="openSubmissionModal()">
-                    <span>+</span> New Submission
-                </button>
-            ` : ''}
+            <button class="btn btn-primary" onclick="openSubmissionModal()">
+                <span>+</span> New Submission
+            </button>
         </div>
         
         <div class="search-filter-bar">
@@ -76,7 +74,7 @@ export async function loadSubmissionsPage() {
                                 <th>Compliance</th>
                                 <th>Submitted</th>
                                 <th>Verified By</th>
-                                ${isStaff(currentProfile) ? '<th>Actions</th>' : ''}
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody id="submissions-table-body">
@@ -114,17 +112,17 @@ function renderSubmissionsRows(submissions) {
                 <td>${s.compliance_result ? `<span class="status-badge ${s.compliance_result.toLowerCase().replace(' ', '-')}">${s.compliance_result}</span>` : '-'}</td>
                 <td>${formatDate(s.submitted_at)}</td>
                 <td>${verifiedBy || '-'}</td>
-                ${isStaff(currentProfile) ? `
-                    <td>
+                <td>
+                    ${isStaff(currentProfile) ? `
                         ${s.submission_status === 'Pending' ? `
-                            <button class="action-btn verify" onclick="verifySubmission('${s.id}')" title="Verify">✅ Verify</button>
-                            <button class="action-btn warning" onclick="returnSubmission('${s.id}')" title="Return">↩️ Return</button>
+                            <button class="action-btn verify" onclick="verifySubmission('${s.id}')" title="Verify">✅</button>
+                            <button class="action-btn warning" onclick="returnSubmission('${s.id}')" title="Return">↩️</button>
                         ` : s.submission_status === 'Verified' && !s.compliance_result ? `
-                            <button class="action-btn success" onclick="evaluateCompliance('${s.id}')" title="Evaluate Compliance">🎯 Evaluate</button>
+                            <button class="action-btn success" onclick="evaluateCompliance('${s.id}')" title="Evaluate">🎯</button>
                         ` : ''}
-                        <button class="action-btn view" onclick="viewSubmissionDetails('${s.id}')" title="View Details">👁️</button>
-                    </td>
-                ` : ''}
+                    ` : ''}
+                    <button class="action-btn view" onclick="viewSubmissionDetails('${s.id}')" title="View Details">👁️</button>
+                </td>
             </tr>
         `;
     }).join('');
