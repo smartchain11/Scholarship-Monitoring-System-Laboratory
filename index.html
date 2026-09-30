@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Monitoring System</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="page active">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <div class="logo">🎓</div>
+                    <h1>Scholarship Monitoring System</h1>
+                    <p class="subtitle">Student Scholarship Monitoring and Academic Compliance</p>
+                </div>
+                <form id="login-form" class="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </form>
+                <div id="login-error" class="error-message hidden"></div>
+                <div class="demo-accounts">
+                    <p><strong>Demo Accounts:</strong></p>
+                    <p>Admin: admin@test.com / admin123</p>
+                    <p>Staff: staff@test.com / staff123</p>
+                    <p>Scholar: scholar@test.com / scholar123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Layout (hidden until login) -->
+    <div id="app-layout" class="page hidden">
+        <header class="top-bar">
+            <div class="brand">
+                <span class="logo">🎓</span>
+                <h1>Scholarship Monitoring</h1>
+            </div>
+            <div class="user-info">
+                <span id="user-name"></span>
+                <span id="user-role" class="role-badge"></span>
+                <button id="logout-btn" class="btn btn-secondary btn-sm">Logout</button>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <nav class="sidebar" id="sidebar">
+                <ul class="nav-menu">
+                    <li><a href="#" data-page="dashboard" class="nav-link active"><span class="nav-icon">📊</span> Dashboard</a></li>
+                    <li><a href="#" data-page="scholars" class="nav-link"><span class="nav-icon">👨‍🎓</span> Scholars</a></li>
+                    <li><a href="#" data-page="programs" class="nav-link"><span class="nav-icon">📋</span> Scholarship Programs</a></li>
+                    <li><a href="#" data-page="submissions" class="nav-link"><span class="nav-icon">📝</span> Grade Submissions</a></li>
+                    <li><a href="#" data-page="compliance" class="nav-link"><span class="nav-icon">✅</span> Compliance</a></li>
+                </ul>
+            </nav>
+
+            <main class="content" id="main-content">
+                <!-- Page content will be loaded here -->
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
+
+    <!-- Scholar Modal -->
+    <div id="scholar-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="scholar-modal-title">Add Scholar</h2>
+                <button class="modal-close" data-modal="scholar-modal">&times;</button>
+            </div>
+            <form id="scholar-form">
+                <input type="hidden" id="scholar-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="scholar-student-id">Student ID *</label>
+                        <input type="text" id="scholar-student-id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="scholar-full-name">Full Name *</label>
+                        <input type="text" id="scholar-full-name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="scholar-degree-program">Degree Program *</label>
+                        <input type="text" id="scholar-degree-program" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="scholar-year-level">Year Level *</label>
+                        <input type="number" id="scholar-year-level" min="1" max="10" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="scholar-scholarship">Scholarship Program *</label>
+                        <select id="scholar-scholarship" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="scholar-status">Status</label>
+                        <select id="scholar-status">
+                            <option value="Active">Active</option>
+                            <option value="Pending Submission">Pending Submission</option>
+                            <option value="For Verification">For Verification</option>
+                            <option value="Compliant">Compliant</option>
+                            <option value="With Deficiency">With Deficiency</option>
+                            <option value="Probationary">Probationary</option>
+                            <option value="For Renewal">For Renewal</option>
+                            <option value="Renewed">Renewed</option>
+                            <option value="Disqualified">Disqualified</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" data-modal="scholar-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Grade Submission Modal -->
+    <div id="submission-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="submission-modal-title">Submit Grades</h2>
+                <button class="modal-close" data-modal="submission-modal">&times;</button>
+            </div>
+            <form id="submission-form">
+                <input type="hidden" id="submission-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="submission-scholar">Scholar *</label>
+                        <select id="submission-scholar" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="submission-academic-year">Academic Year *</label>
+                        <input type="text" id="submission-academic-year" placeholder="e.g., 2024-2025" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="submission-semester">Semester *</label>
+                        <select id="submission-semester" required>
+                            <option value="1st">1st Semester</option>
+                            <option value="2nd">2nd Semester</option>
+                            <option value="Summer">Summer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="submission-gwa">GWA *</label>
+                        <input type="number" id="submission-gwa" step="0.01" min="1.00" max="5.00" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="submission-units">Units Enrolled *</label>
+                        <input type="number" id="submission-units" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="submission-failed">Failed Subjects</label>
+                        <input type="number" id="submission-failed" min="0" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="submission-incomplete">Incomplete Subjects</label>
+                        <input type="number" id="submission-incomplete" min="0" value="0">
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" data-modal="submission-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Submission</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Verification Modal -->
+    <div id="verify-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Verify Grade Submission</h2>
+                <button class="modal-close" data-modal="verify-modal">&times;</button>
+            </div>
+            <div id="verify-details"></div>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" data-modal="verify-modal">Cancel</button>
+                <button type="button" id="verify-btn" class="btn btn-primary">Mark as Verified</button>
+                <button type="button" id="return-btn" class="btn btn-warning">Return for Correction</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Program Modal -->
+    <div id="program-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="program-modal-title">Add Scholarship Program</h2>
+                <button class="modal-close" data-modal="program-modal">&times;</button>
+            </div>
+            <form id="program-form">
+                <input type="hidden" id="program-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="program-name">Program Name *</label>
+                        <input type="text" id="program-name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="program-gwa">Required GWA *</label>
+                        <input type="number" id="program-gwa" step="0.01" min="1.00" max="5.00" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="program-units">Minimum Units *</label>
+                        <input type="number" id="program-units" min="1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="program-allow-failing">
+                        <label for="program-allow-failing">Allow Failing Grades</label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="program-active" checked>
+                        <label for="program-active">Active</label>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" data-modal="program-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Program</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
