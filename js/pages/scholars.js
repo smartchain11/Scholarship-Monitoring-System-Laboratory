@@ -2,7 +2,8 @@
 // Scholars Page
 // ============================================
 import { supabase } from '../supabase.js';
-import { currentProfile, isStaff, isAdmin, formatDate, showToast } from '../supabase.js';
+import { currentProfile } from '../auth.js';
+import { isStaff, isAdmin, formatDate, showToast } from '../supabase.js';
 
 let scholarsData = [];
 let scholarshipPrograms = [];

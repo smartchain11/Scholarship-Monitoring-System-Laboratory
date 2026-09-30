@@ -2,7 +2,8 @@
 // Grade Submissions Page
 // ============================================
 import { supabase } from '../supabase.js';
-import { currentProfile, isStaff, isAdmin, formatDate, formatDateTime, showToast } from '../supabase.js';
+import { currentProfile } from '../auth.js';
+import { isStaff, isAdmin, formatDate, formatDateTime, showToast } from '../supabase.js';
 
 let submissionsData = [];
 let scholarsData = [];

@@ -2,7 +2,8 @@
 // Scholarship Programs Page
 // ============================================
 import { supabase } from '../supabase.js';
-import { currentProfile, isAdmin, showToast } from '../supabase.js';
+import { currentProfile } from '../auth.js';
+import { isAdmin, showToast } from '../supabase.js';
 
 let programsData = [];
 
