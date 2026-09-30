@@ -103,6 +103,12 @@ CREATE POLICY "Staff and admins can view all profiles" ON profiles
         )
     );
 
+CREATE POLICY "Users can insert own profile" ON profiles
+    FOR INSERT WITH CHECK (auth.uid() = id);
+
+CREATE POLICY "Users can update own profile" ON profiles
+    FOR UPDATE USING (auth.uid() = id);
+
 -- Scholarship Programs: Everyone can read active programs, only admins can modify
 CREATE POLICY "Anyone can view active scholarship programs" ON scholarship_programs
     FOR SELECT USING (active = TRUE);
