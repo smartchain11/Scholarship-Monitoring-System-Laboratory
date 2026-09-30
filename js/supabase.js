@@ -2,8 +2,8 @@
 // Supabase Configuration
 // ============================================
 // Replace with your Supabase project URL and anon key
-export const SUPABASE_URL = 'https://your-project.supabase.co';
-export const SUPABASE_ANON_KEY = 'your-anon-key';
+export const SUPABASE_URL = 'https://cpafexwayfoogfqkamen.supabase.co';
+export const SUPABASE_ANON_KEY = 'sb_publishable_2ro4kPfeV37l0HQE-Tlcvw_2K_eQDFn';
 
 // Create Supabase client
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
