@@ -91,17 +91,9 @@ ALTER TABLE scholarship_programs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE scholars ENABLE ROW LEVEL SECURITY;
 ALTER TABLE grade_submissions ENABLE ROW LEVEL SECURITY;
 
--- Profiles: Users can read their own profile, admins/staff can read all
-CREATE POLICY "Users can view own profile" ON profiles
-    FOR SELECT USING (auth.uid() = id);
-
-CREATE POLICY "Staff and admins can view all profiles" ON profiles
-    FOR SELECT USING (
-        EXISTS (
-            SELECT 1 FROM profiles p 
-            WHERE p.id = auth.uid() AND p.role IN ('admin', 'staff')
-        )
-    );
+-- Profiles: Anyone authenticated can view profiles (fixes infinite recursion)
+CREATE POLICY "Anyone can view profiles" ON profiles
+    FOR SELECT USING (auth.role() = 'authenticated');
 
 CREATE POLICY "Users can insert own profile" ON profiles
     FOR INSERT WITH CHECK (auth.uid() = id);
