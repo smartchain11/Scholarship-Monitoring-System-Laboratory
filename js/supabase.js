@@ -29,7 +29,28 @@ export async function getCurrentProfile() {
         .single();
     
     if (error) {
-        console.error('Error fetching profile:', error);
+        if (error.code === 'PGRST116') {
+            // Profile missing, auto-create it using metadata from registration
+            const role = user.user_metadata?.role || 'scholar';
+            const fullName = user.user_metadata?.full_name || user.email;
+            
+            const { data: newProfile, error: insertError } = await supabase
+                .from('profiles')
+                .insert({
+                    id: user.id,
+                    full_name: fullName,
+                    role: role
+                })
+                .select()
+                .single();
+                
+            if (!insertError) {
+                return newProfile;
+            }
+            console.error('Error auto-creating profile:', insertError);
+        } else {
+            console.error('Error fetching profile:', error);
+        }
         return null;
     }
     return data;
